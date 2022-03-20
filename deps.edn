@@ -1,5 +1,5 @@
 {
- :paths ["src" "test"]
+ :paths ["src"]
 
  :deps
  {org.clojure/clojure {:mvn/version "1.10.3"}
@@ -26,6 +26,6 @@
   ;; clj -M:run
   :run {:main-opts ["-m" "server"]
         :extra-paths ["test"]
-        ;; :jvm-opts ["-Dconfig=test/config.edn"]
+        :jvm-opts ["-Dconfig=test/config.edn"]
         }
   }}
