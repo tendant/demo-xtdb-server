@@ -1,19 +1,20 @@
 {
- :paths ["src"]
+ :paths ["src" "test"]
 
  :deps
  {org.clojure/clojure {:mvn/version "1.10.3"}
   ;; org.clojure/tools.deps.alpha {:mvn/version "0.12.1158"}
-  ;; com.xtdb/xtdb-core {:mvn/version "1.20.0"}
-  com.xtdb/xtdb-core {:mvn/version "1.21.0-beta1"}
-  ;; com.xtdb/xtdb-jdbc {:mvn/version "1.20.0"}
-  ;; com.xtdb/xtdb-rocksdb {:mvn/version "1.20.0"}
-  ;; com.xtdb/xtdb-http-server {:mvn/version "1.20.0"}
+  com.xtdb/xtdb-core {:mvn/version "1.20.0"}
+  ;; com.xtdb/xtdb-core {:mvn/version "1.21.0-beta1"}
+  com.xtdb/xtdb-jdbc {:mvn/version "1.20.0"}
+  org.postgresql/postgresql {:mvn/version "42.2.18"}
+  com.xtdb/xtdb-rocksdb {:mvn/version "1.20.0"}
+  com.xtdb/xtdb-http-server {:mvn/version "1.20.0"}
   ;; com.xtdb/xtdb-http-server {:mvn/version "1.21.o-beta1"}
-  ;; com.taoensso/timbre {:mvn/version "5.1.0"}
-  ;; yogthos/config {:mvn/version "1.2.0"}
-  ;; ring/ring-jetty-adapter {:mvn/version "1.9.5"}
-  ;; metosin/reitit {:mvn/version "0.5.11"}
+  com.taoensso/timbre {:mvn/version "5.1.0"}
+  yogthos/config {:mvn/version "1.2.0"}
+  ring/ring-jetty-adapter {:mvn/version "1.9.5"}
+  metosin/reitit {:mvn/version "0.5.11"}
   }
 
  :aliases
@@ -23,8 +24,8 @@
           :ns-default build}
 
   ;; clj -M:run
-  :run {:main-opts ["-m" "xtdb.server"]
-        ;; :extra-paths ["test"]
+  :run {:main-opts ["-m" "server"]
+        :extra-paths ["test"]
         ;; :jvm-opts ["-Dconfig=test/config.edn"]
         }
   }}

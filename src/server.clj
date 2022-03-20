@@ -1,6 +1,6 @@
-(ns xtdb.server
+(ns server
   (:require [taoensso.timbre :as log]
-            [xtdb.node :as node]
+            [node :as node]
             [ring.adapter.jetty :as j]
             [reitit.ring :as rr]
             [xtdb.http-server :as xtdb-http-server]))

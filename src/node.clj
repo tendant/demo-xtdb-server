@@ -1,4 +1,4 @@
-(ns xtdb.node
+(ns node
   (:require [xtdb.api :as xt]
             [clojure.java.io :as io]
             [config.core :as config])

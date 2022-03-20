@@ -1,0 +1,10 @@
+{
+ :xtdb-node-type "mem"
+ ;; :xtdb-node-type "jdbc"
+ :xtdb-jdbc-dbtype "postgresql"
+ :xtdb-jdbc-dbname "xtdb_db"
+ :xtdb-jdbc-host "localhost"
+ :xtdb-jdbc-user "xtdb"
+ :xtdb-jdbc-password "pwd"
+ :xtdb-jdbc-port "15432"
+ }
