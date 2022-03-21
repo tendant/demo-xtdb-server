@@ -25,6 +25,7 @@
                                                     :db-spec {:dbtype (:xtdb-jdbc-dbtype config/env)
                                                               :dbname (:xtdb-jdbc-dbname config/env)
                                                               :host (:xtdb-jdbc-host config/env)
+                                                              :port (:xtdb-jdbc-port config/env)
                                                               :user (:xtdb-jdbc-user config/env)
                                                               :password (:xtdb-jdbc-password config/env)}
                                                     :pool-opts {:maximumPoolSize (or (:db-maximum-pool-size config/env) 2)}}
@@ -32,8 +33,10 @@
                                       :connection-pool :xtdb.jdbc/connection-pool}
                         :xtdb/document-store {:xtdb/module 'xtdb.jdbc/->document-store
                                               :connection-pool :xtdb.jdbc/connection-pool}
-                        :xtdb/index-store {:kv-store {:xtdb/module 'xtdb.rocksdb/->kv-store
-                                                      :db-dir (io/file "./rocksdb")}}}
+                        :xtdb/index-store (case (:xtdb-index-store config/env)
+                                            "rocksdb" {:kv-store {:xtdb/module 'xtdb.rocksdb/->kv-store
+                                                                                          :db-dir (io/file "./rocksdb")}}
+                                            {})}
                  (:xtdb-checkpointer-enabled config/env) (assoc-in [:xtdb/index-store :kv-store :checkpointer]
                                                                     {:xtdb/module 'xtdb.checkpoint/->checkpointer
                                                                      :approx-frequency (Duration/ofMinutes (:xtdb-checkpointer-frequency-of-minutes config/env))

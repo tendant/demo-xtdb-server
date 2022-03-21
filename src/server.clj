@@ -3,7 +3,9 @@
             [node :as node]
             [ring.adapter.jetty :as j]
             [reitit.ring :as rr]
-            [xtdb.http-server :as xtdb-http-server]))
+            [xtdb.http-server :as xtdb-http-server])
+  (:import
+   java.io.OutputStream))
 
 (log/merge-config!
  {:min-level [["taoensso.*" :error]
@@ -16,6 +18,17 @@
 
   :appenders {:println (log/println-appender {:stream :auto})}})
 
+(extend-protocol ring.core.protocols/StreamableResponseBody
+  (Class/forName "[B")
+  (write-body-to-stream [body _ ^OutputStream output-stream]
+    (with-open [out output-stream]
+      (.write out ^bytes body)))
+
+  juxt.clojars_mirrors.muuntaja.v0v6v8.muuntaja.protocols.StreamableResponse
+  (write-body-to-stream [this _ ^OutputStream output-stream]
+    (with-open [out output-stream]
+      ((.f this) ^OutputStream out))))
+
 (defn create-crux-app
   []
   (rr/routes
@@ -23,7 +36,7 @@
 
 (defn -main
   [& args]
-  (let [port 8080]
+  (let [port 3000]
     (log/info "Starting server. port:" port)
     (j/run-jetty (create-crux-app)
                  {:port port})

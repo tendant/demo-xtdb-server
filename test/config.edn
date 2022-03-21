@@ -1,6 +1,8 @@
 {
- :xtdb-node-type "mem"
- ;; :xtdb-node-type "jdbc"
+ ;; :xtdb-node-type "mem"
+ :xtdb-index-store "mem" ; "rocksdb"
+ :xtdb-checkpointer-enabled false
+ :xtdb-node-type "jdbc"
  :xtdb-jdbc-dbtype "postgresql"
  :xtdb-jdbc-dbname "xtdb_db"
  :xtdb-jdbc-host "localhost"

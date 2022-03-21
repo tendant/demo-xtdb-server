@@ -1,1 +1,0 @@
-DON'T  use namespace xtdb.node. Conflict on namespace will introduce strange bug/issue
