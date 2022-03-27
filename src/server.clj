@@ -29,10 +29,28 @@
     (with-open [out output-stream]
       ((.f this) ^OutputStream out))))
 
+(defn string->stream
+  ([s] (string->stream s "UTF-8"))
+  ([s encoding]
+   (-> s
+       (.getBytes encoding)
+       (java.io.ByteArrayInputStream.))))
+
+(defn wrap-debug
+  [handler]
+  (fn [req]
+    (println "REQ:" req)
+    (let [resp (handler req)
+          body (slurp (:body resp))]
+      (println "RESP:" (dissoc resp :body))
+      (println "Body:" body)
+      (assoc resp :body (string->stream body)))))
+
 (defn create-crux-app
   []
-  (rr/routes
-   (xtdb-http-server/->xtdb-handler (node/start-xtdb-node) {})))
+  (-> (rr/routes
+       (xtdb-http-server/->xtdb-handler (node/start-xtdb-node) {}))
+      (wrap-debug)))
 
 (defn -main
   [& args]
