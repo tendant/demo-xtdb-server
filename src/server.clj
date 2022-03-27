@@ -39,8 +39,11 @@
 (defn wrap-debug
   [handler]
   (fn [req]
-    (println "REQ:" req)
-    (let [resp (handler req)
+    (println "\nREQ:" req)
+    (let [req-body (slurp (:body req))
+          _ (println "REQ body:" req-body)
+          new-req (assoc req :body (string->stream req-body))
+          resp (handler new-req)
           body (slurp (:body resp))]
       (println "RESP:" (dissoc resp :body))
       (println "Body:" body)
